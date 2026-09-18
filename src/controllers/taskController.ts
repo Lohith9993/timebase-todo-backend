@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import Task = require('../models/Task');
+import Task from '../models/Task';
 import { AuthRequest } from '../middleware/authMiddleware';
 
 export const createTask = async (req: AuthRequest, res: Response) => {
