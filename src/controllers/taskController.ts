@@ -11,7 +11,7 @@ export const createTask = async (req: AuthRequest, res: Response) => {
     });
     await task.save();
     res.status(201).json(task);
-  } catch (error) { console.error('TASK ERROR:', error.message, error.stack);
+  } catch (error) { console.error('Task operation failed:', (error as Error).message);
     res.status(500).json({ message: 'Server error', error });
   }
 };
@@ -40,7 +40,7 @@ export const getTasks = async (req: AuthRequest, res: Response) => {
     });
 
     res.json(sortedTasks);
-  } catch (error) { console.error('TASK ERROR:', error.message, error.stack);
+  } catch (error) { console.error('Task operation failed:', (error as Error).message);
     res.status(500).json({ message: 'Server error', error });
   }
 };
@@ -54,7 +54,7 @@ export const updateTask = async (req: AuthRequest, res: Response) => {
     );
     if (!task) return res.status(404).json({ message: 'Task not found' });
     res.json(task);
-  } catch (error) { console.error('TASK ERROR:', error.message, error.stack);
+  } catch (error) { console.error('Task operation failed:', (error as Error).message);
     res.status(500).json({ message: 'Server error', error });
   }
 };
@@ -64,7 +64,7 @@ export const deleteTask = async (req: AuthRequest, res: Response) => {
     const task = await Task.findOneAndDelete({ _id: req.params.id, userId: req.user.id });
     if (!task) return res.status(404).json({ message: 'Task not found' });
     res.json({ message: 'Task deleted successfully' });
-  } catch (error) { console.error('TASK ERROR:', error.message, error.stack);
+  } catch (error) { console.error('Task operation failed:', (error as Error).message);
     res.status(500).json({ message: 'Server error', error });
   }
 };
